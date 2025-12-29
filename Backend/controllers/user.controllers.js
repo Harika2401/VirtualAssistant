@@ -5,17 +5,37 @@ import geminiResponse from "../Gemini.js";
 import moment from "moment";
 export const getCurrentUser = async(req,res)=>{
     try {
-        const userId = req.userId
-        const user=await User.findById(userId).select("-password")
-        if(!user)
-        {
-            return res.status(400).json({message:"user not found"})
-        }
-        return res.status(200).json(user)
-    } catch (error) {
-        return res.status(400).json({message:"get current user error"})
+    const { assistantName, imageUrl } = req.body;
+
+    if (!assistantName) {
+      return res.status(400).json({ message: "Assistant name is required" });
     }
-}
+
+    let assistantImage;
+
+    if (req.file) {
+      // ✅ ACTUAL upload
+      const uploadResult = await uploadOnCloudinary(req.file.path);
+      assistantImage = uploadResult;
+    } else if (imageUrl) {
+      assistantImage = imageUrl;
+    } else {
+      return res.status(400).json({ message: "Assistant image is required" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { assistantName, assistantImage },
+      { new: true }
+    ).select("-password");
+
+    return res.status(200).json(user);
+
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "update assistant error" });
+  }
+};
 //to store the assistantimage in database so that it can go to backend easily*/}
 export const updateAssistant=async(req,res)=>{
     try {
@@ -55,7 +75,7 @@ export const askToAssistant=async(req,res)=>{
         const userName=user.name
         const assistantName=user.assistantName
         //get result from gemini
-        const result=await geminiResponse(command,assistantName,userName)
+        const result=await geminiResponse(command,userName,assistantName)
 
         const jsonMatch=result.match(/{[\s\S]*}/)
         if(!jsonMatch){
