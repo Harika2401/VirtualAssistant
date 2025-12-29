@@ -14,7 +14,7 @@ const app = express() //means all methods and functions of express can be used t
 //before this step create .env file
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://virtualassistant-frontend-a42s.onrender.com",
     credentials:true
 }))
 // ✅ BODY PARSERS — MUST COME FIRST
