@@ -8,7 +8,7 @@ import image6 from "../assets/image6.png"
 import image7 from "../assets/image7.png"
 import Card from "../components/Card";
 import { LuImagePlus } from "react-icons/lu";
-import { userDataContext } from "../context/userContext";
+import { userDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 function Customize(){
