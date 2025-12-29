@@ -3,7 +3,7 @@ import axios from "axios";
 export const userDataContext = createContext();
 
 function UserContext({ children }) {
-  const serverUrl = "http://localhost:8000"; // Your backend server
+  const serverUrl = "https://virtualassistant-hhb2.onrender.com"; // Your backend server
   const [userData,setUserData]=useState(null)
   const [frontendImage,setFrontendImage]=useState(null)
   const [backendImage,setBackendImage]=useState(null)
