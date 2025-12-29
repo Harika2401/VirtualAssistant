@@ -37,8 +37,8 @@ export const signup = async(req,res)=>{
             //write the methods
             httpOnly:true,
             maxAge:7*24*60*60*1000,//how much time should the token stored (here 7days)
-            sameSite:"laxm",
-            secure:false, //we are using http so make it false
+            sameSite:"None",
+            secure:true,
         }) //token is the cookie name which we have created to store all the tokens
 
         //send to user
@@ -69,8 +69,8 @@ export const Login = async(req,res)=>{
             //write the methods
             httpOnly:true,
             maxAge:7*24*60*1000,//how much time should the token stored (here 7days)
-            sameSite:"strict",
-            secure:false //we are using http so make it false
+            sameSite:"None",
+            secure:true,
         }) //token is the cookie name which we have created to store all the tokens
 
         //send to user
