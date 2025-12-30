@@ -36,9 +36,11 @@ function UserContext({ children }) {
     serverUrl,userData,setUserData,backendImage,setBackendImage,frontendImage,setFrontendImage,selectedImage,setSelectedImage,getGeminiResponse
   }
   return (
+    <div>
     <userDataContext.Provider value={value}>
       {children}
     </userDataContext.Provider>
+      </div>
   );
 }
 
